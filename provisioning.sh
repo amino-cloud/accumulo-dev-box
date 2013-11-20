@@ -1,12 +1,9 @@
 #!/bin/bash
 
 echo "Updating the system and installing curl and python-software properties..."
-sed -i 's/us.archive.ubuntu.com/mirror.umd.edu/' /etc/apt/sources.list
+sudo sed -i 's/us.archive.ubuntu.com/mirror.umd.edu/' /etc/apt/sources.list
 sudo apt-get -q update
 sudo apt-get -q install curl python-software-properties -y
-
-echo "Running updates..."
-sudo apt-get -q upgrade -y
 
 echo "Installing Sun Java..."
 sudo add-apt-repository ppa:webupd8team/java

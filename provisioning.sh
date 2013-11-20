@@ -109,7 +109,7 @@ cat > ~/accumulo-1.4.4/conf/slaves <<EOF
 accumulo-dev-box
 EOF
 
-sed -i 's/>secret</>password</' accumulo-1.4.4/conf/accumulo-site.xml
+sed -i 's/>DEFAULT</>password</' accumulo-1.4.4/conf/accumulo-site.xml
 accumulo-1.4.4/bin/accumulo init --clear-instance-name <<EOF
 accumulo
 password

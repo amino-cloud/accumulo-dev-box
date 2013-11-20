@@ -23,12 +23,12 @@ curl -O -L -s http://archive.cloudera.com/cdh/3/hadoop-0.20.2-cdh3u3.tar.gz
 echo "- Zookeeper"
 curl -O -L -s http://archive.cloudera.com/cdh/3/zookeeper-3.3.4-cdh3u3.tar.gz
 echo "- Accumulo"
-curl -O -L -s http://apache.mesi.com.ar/accumulo/1.4.3/accumulo-1.4.3-dist.tar.gz
+curl -O -L -s http://www.gtlib.gatech.edu/pub/apache/accumulo/1.4.4/accumulo-1.4.4-dist.tar.gz
 
 echo "Extracting archives..."
 tar -zxf hadoop-0.20.2-cdh3u3.tar.gz
 tar -zxf zookeeper-3.3.4-cdh3u3.tar.gz
-tar -zxf accumulo-1.4.3-dist.tar.gz
+tar -zxf accumulo-1.4.4-dist.tar.gz
 
 echo "Configuring Hadoop..."
 ssh-keygen -t rsa -f /home/vagrant/.ssh/id_rsa -N ''
@@ -99,25 +99,25 @@ echo "Running Zookeeper..."
 zookeeper-3.3.4-cdh3u3/bin/zkServer.sh start
 
 echo "Configuring Accumulo..."
-cp accumulo-1.4.3/conf/examples/1GB/standalone/* accumulo-1.4.3/conf/
+cp accumulo-1.4.4/conf/examples/1GB/standalone/* accumulo-1.4.4/conf/
 
-cat > ~/accumulo-1.4.3/conf/masters <<EOF
+cat > ~/accumulo-1.4.4/conf/masters <<EOF
 accumulo-dev-box
 EOF
 
-cat > ~/accumulo-1.4.3/conf/slaves <<EOF
+cat > ~/accumulo-1.4.4/conf/slaves <<EOF
 accumulo-dev-box
 EOF
 
-sed -i 's/>secret</>password</' accumulo-1.4.3/conf/accumulo-site.xml
-accumulo-1.4.3/bin/accumulo init --clear-instance-name <<EOF
+sed -i 's/>secret</>password</' accumulo-1.4.4/conf/accumulo-site.xml
+accumulo-1.4.4/bin/accumulo init --clear-instance-name <<EOF
 accumulo
 password
 password
 EOF
 
 echo "Starting Accumulo..."
-accumulo-1.4.3/bin/start-all.sh
+accumulo-1.4.4/bin/start-all.sh
 
 echo 'Done!'
 

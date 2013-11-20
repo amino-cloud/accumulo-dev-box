@@ -14,6 +14,11 @@ ff02::2 ip6-allrouters
 10.211.55.100   accumulo-dev-box
 EOF
 
+#Needs to be done as root.
+echo "Fixing VM swappiness"
+sysctl vm.swappiness=10
+echo "vm.swappiness=10" >> /etc/sysctl.conf
+
 # Do everything else as vagrant
 chmod 755 /vagrant/provisioning.sh
 sudo -u vagrant -i /vagrant/provisioning.sh

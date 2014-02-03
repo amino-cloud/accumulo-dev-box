@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+
+
+<configuration>
+  <property>
+    <name>data.location</name>
+    <value>/amino/numbers/in/numbers-1k.txt</value>
+  </property>
+  <property>
+    <name>number2-max</name>
+    <value>10</value>
+  </property>
+</configuration>

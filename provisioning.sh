@@ -129,8 +129,26 @@ password
 password
 EOF
 
+echo "Deploying the Amino Accumulo iterator"
+cp /vagrant/Amino/amino-accumulo-iterators* accumulo-1.4.4/lib/ext/
+
 echo "Starting Accumulo..."
 accumulo-1.4.4/bin/start-all.sh
 
+echo "Adding authorizations"
+accumulo-1.4.4/bin/accumulo shell -u root -p password -e "setauths -s U"
+
+echo "Creating the HDFS structures for the number example"
+hadoop fs -mkdir /amino/numbers/config
+hadoop fs -mkdir /amino/numbers/in
+hadoop fs -mkdir /amino/numbers/out
+hadoop fs -mkdir /amino/numbers/working
+hadoop fs -copyFromLocal /vagrant/Amino/NumberLoader.xml /amino/numbers/config
+hadoop fs -copyFromLocal /vagrant/Amino/AminoDefaults.xml /amino/numbers/config
+hadoop fs -copyFromLocal /vagrant/Amino/numbers-* /amino/numbers/in
+
+
 echo 'Done!'
+
+
 

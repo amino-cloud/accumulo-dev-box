@@ -15,7 +15,10 @@ Vagrant.configure("2") do |config|
     master.vm.network :private_network, ip: "10.211.55.100"
     master.vm.hostname = "accumulo-dev-box"
     master.vm.provision :shell, :path=> 'do_as_vagrant_user.sh'
+    master.vm.provision :shell, :path=> 'tomcat.sh'
+    master.vm.network "forwarded_port", guest: 8080, host: 20426
   end
+
 
 end
 

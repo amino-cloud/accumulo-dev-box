@@ -1,29 +1,33 @@
 #!/bin/bash
 
 ACCUMULO_VERSION=1.4.4
+JDK_LOC=/usr/lib/jvm/java-7-openjdk-amd64/
 
 echo "Updating the system and installing curl and python-software properties..."
 sudo sed -i 's/us.archive.ubuntu.com/mirror.umd.edu/' /etc/apt/sources.list
 sudo apt-get update
 sudo apt-get install curl python-software-properties vim -y
 
-echo "Installing Sun Java..."
-sudo add-apt-repository ppa:webupd8team/java
-sudo apt-get update
-echo debconf shared/accepted-oracle-license-v1-1 select true | \
-  sudo /usr/bin/debconf-set-selections
-echo debconf shared/accepted-oracle-license-v1-1 seen true | \
-  sudo /usr/bin/debconf-set-selections
-sudo apt-get install -y oracle-java7-installer
+echo "Installing OpenJDK 7"
+sudo apt-get install -y openjdk-7-jdk
+
+#echo "Installing Sun Java..."
+#sudo add-apt-repository ppa:webupd8team/java
+#sudo apt-get update
+#echo debconf shared/accepted-oracle-license-v1-1 select true | \
+#  sudo /usr/bin/debconf-set-selections
+#echo debconf shared/accepted-oracle-license-v1-1 seen true | \
+#  sudo /usr/bin/debconf-set-selections
+#sudo apt-get install -y oracle-java7-installer
 
 echo "Setting up environment..."
 cat >> /home/vagrant/.bashrc <<EOF
-export JAVA_HOME=/usr/lib/jvm/java-7-oracle/
+export JAVA_HOME=$JDK_LOC
 export HADOOP_HOME=/home/vagrant/hadoop-0.20.2-cdh3u3
 export ZOOKEEPER_HOME=/home/vagrant/zookeeper-3.3.4-cdh3u3
 export PATH=$PATH:/home/vagrant/hadoop-0.20.2-cdh3u3/bin:/home/vagrant/accumulo-$ACCUMULO_VERSION/bin
 EOF
-export JAVA_HOME=/usr/lib/jvm/java-7-oracle/
+export JAVA_HOME=$JDK_LOC
 export HADOOP_HOME=/home/vagrant/hadoop-0.20.2-cdh3u3
 export ZOOKEEPER_HOME=/home/vagrant/zookeeper-3.3.4-cdh3u3
 export PATH=$PATH:/home/vagrant/hadoop-0.20.2-cdh3u3/bin:/home/vagrant/accumulo-$ACCUMULO_VERSION/bin
@@ -47,7 +51,7 @@ ssh-keygen -t rsa -f /home/vagrant/.ssh/id_rsa -N ''
 cat /home/vagrant/.ssh/id_rsa.pub >> /home/vagrant/.ssh/authorized_keys
 ssh-keyscan localhost >> /home/vagrant/.ssh/known_hosts
 cat >> hadoop-0.20.2-cdh3u3/conf/hadoop-env.sh <<EOF
-export JAVA_HOME=/usr/lib/jvm/java-7-oracle/
+export JAVA_HOME=$JDK_LOC
 EOF
 cat > hadoop-0.20.2-cdh3u3/conf/core-site.xml <<EOF
 <?xml version="1.0"?>

@@ -21,3 +21,6 @@ EOF
 sudo chgrp -R tomcat7 /etc/tomcat7
 sudo chmod -R g+w /etc/tomcat7 
 
+# Restart the server to pick up the new roles
+sudo service tomcat7 restart
+

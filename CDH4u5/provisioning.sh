@@ -51,6 +51,7 @@ echo "Step 0-2"
 cat /vagrant/downloads/archive.key | sudo apt-key add -
 
 # Install MRv1/YARN in pseudo-distributed mode
+# See http://www.cloudera.com/content/cloudera-content/cloudera-docs/CDH4/4.2.0/CDH4-Quick-Start/cdh4qs_topic_3.html
 echo "\n===================="
 echo "Installing MRv1 in pseudo-distributed mode"
 #echo "Installing YARN in pseudo-distributed mode"

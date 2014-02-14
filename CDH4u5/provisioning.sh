@@ -163,6 +163,7 @@ cat > /home/vagrant/accumulo-$ACCUMULO_VERSION/conf/slaves <<EOF
 accumulo-dev-box
 EOF
 
+sed -i 's/>secret</>password</' /home/vagrant/accumulo-$ACCUMULO_VERSION/conf/accumulo-site.xml
 sed -i 's/>DEFAULT</>password</' /home/vagrant/accumulo-$ACCUMULO_VERSION/conf/accumulo-site.xml
 sed -i 's/HADOOP_PREFIX/HADOOP_HOME/' /home/vagrant/accumulo-$ACCUMULO_VERSION/conf/accumulo-site.xml
 sed -i 's/HADOOP_CONF_DIR/HADOOP_HOME\/conf,\n$HADOOP_HDFS_HOME\/[^.].*.jar,\n$HADOOP_HDFS_HOME\/lib\/[^.].*.jar/' /home/vagrant/accumulo-$ACCUMULO_VERSION/conf/accumulo-site.xml

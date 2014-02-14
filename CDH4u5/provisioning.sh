@@ -27,7 +27,7 @@ cat >> /home/vagrant/.bashrc <<EOF
 export JAVA_HOME=$JDK_LOC
 export HADOOP_HOME=/usr/lib/hadoop
 export HADOOP_COMMON_HOME=/usr/lib/hadoop
-export HADOOP_MAPRED_HOME=/usr/lib/usr/lib/hadoop-0.20-mapreduce
+export HADOOP_MAPRED_HOME=/usr/lib/hadoop-0.20-mapreduce
 export HADOOP_HDFS_HOME=/usr/lib/hadoop-hdfs
 export ZOOKEEPER_HOME=/usr/lib/zookeeper
 export ACCUMULO_HOME=/home/vagrant/accumulo-$ACCUMULO_VERSION

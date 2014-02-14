@@ -25,19 +25,20 @@ echo "Setting up environment..."
 echo "===================="
 cat >> /home/vagrant/.bashrc <<EOF
 export JAVA_HOME=$JDK_LOC
-export HADOOP_MAPRED_HOME=/usr/lib/hadoop-mapreduce
 export HADOOP_HOME=/usr/lib/hadoop
-export HADOOP_HDFS=/usr/lib/hadoop-hdfs
+export HADOOP_COMMON_HOME=/usr/lib/hadoop
+export HADOOP_MAPRED_HOME=/usr/lib/usr/lib/hadoop-0.20-mapreduce
+export HADOOP_HDFS_HOME=/usr/lib/hadoop-hdfs
 export ZOOKEEPER_HOME=/usr/lib/zookeeper
 export ACCUMULO_HOME=/home/vagrant/accumulo-$ACCUMULO_VERSION
 EOF
 export JAVA_HOME=$JDK_LOC
-export HADOOP_MAPRED_HOME=/usr/lib/hadoop-mapreduce
 export HADOOP_HOME=/usr/lib/hadoop
-export HADOOP_HDFS=/usr/lib/hadoop-hdfs
+export HADOOP_COMMON_HOME=/usr/lib/hadoop
+export HADOOP_MAPRED_HOME=/usr/lib/hadoop-0.20-mapreduce
+export HADOOP_HDFS_HOME=/usr/lib/hadoop-hdfs
 export ZOOKEEPER_HOME=/usr/lib/zookeeper
 export ACCUMULO_HOME=/home/vagrant/accumulo-$ACCUMULO_VERSION
-export HADOOP_HDFS=/usr/lib/hadoop-hdfs
 
 echo "\n===================="
 echo "Fetching CDH4"
@@ -164,7 +165,7 @@ EOF
 
 sed -i 's/>DEFAULT</>password</' /home/vagrant/accumulo-$ACCUMULO_VERSION/conf/accumulo-site.xml
 sed -i 's/HADOOP_PREFIX/HADOOP_HOME/' /home/vagrant/accumulo-$ACCUMULO_VERSION/conf/accumulo-site.xml
-sed -i 's/HADOOP_CONF_DIR/HADOOP_HOME\/conf,\n$HADOOP_HDFS\/[^.].*.jar,\n$HADOOP_HDFS\/lib\/[^.].*.jar/' /home/vagrant/accumulo-$ACCUMULO_VERSION/conf/accumulo-site.xml
+sed -i 's/HADOOP_CONF_DIR/HADOOP_HOME\/conf,\n$HADOOP_HDFS_HOME\/[^.].*.jar,\n$HADOOP_HDFS_HOME\/lib\/[^.].*.jar/' /home/vagrant/accumulo-$ACCUMULO_VERSION/conf/accumulo-site.xml
 
 /home/vagrant/accumulo-$ACCUMULO_VERSION/bin/accumulo init --clear-instance-name <<EOF
 accumulo
@@ -173,7 +174,7 @@ password
 EOF
 
 echo "Deploying the Amino Accumulo iterator"
-#cp /vagrant/Amino/amino-accumulo-iterators* /home/vagrant/accumulo-$ACCUMULO_VERSION/lib/ext/
+cp /vagrant/Amino/amino-accumulo-iterators* /home/vagrant/accumulo-$ACCUMULO_VERSION/lib/ext/
 
 echo "Starting Accumulo..."
 /home/vagrant/accumulo-$ACCUMULO_VERSION/bin/start-all.sh
@@ -185,7 +186,8 @@ echo "Creating the HDFS structures for the number example"
 hadoop fs -mkdir /amino/numbers/config
 hadoop fs -mkdir /amino/numbers/in
 hadoop fs -mkdir /amino/numbers/out
-hadoop fs -mkdir /amino/numbers/working
+hadoop fs -mkdir /amino/numbers/working/files
+hadoop fs -mkdir /amino/numbers/working/failures
 hadoop fs -copyFromLocal /vagrant/Amino/NumberLoader.xml /amino/numbers/config
 hadoop fs -copyFromLocal /vagrant/Amino/AminoDefaults.xml /amino/numbers/config
 hadoop fs -copyFromLocal /vagrant/Amino/numbers-* /amino/numbers/in

@@ -1,0 +1,58 @@
+#!/bin/bash
+
+#http://azkaban.github.io/downloads.html
+FILE_AZKABAN_WEBSERVER=azkaban-web-server-2.1.tar.gz
+FILE_AZKABAN_EXECUTOR_SERVER=azkaban-executor-server-2.1.tar.gz
+FILE_AZKABAN_MYSQL_SCRIPTS=azkaban-sql-script-2.1.tar.gz
+FILE_AZKABAN_PLUGIN_HDFS=azkaban-hdfs-viewer-2.1.tar.gz
+FILE_AZKABAN_PLUGIN_JOBTYPES=azkaban-jobtype-2.1.tar.gz
+FILE_AZAKBAN_PLUGIN_YARN=azkaban-hadoopsecuritymanager-yarn-2.1.jar
+FILE_MYSQL_CONNECTOR=mysql-connector-java-5.1.29.tar.gz
+FILE_JDK=jdk-7u51-linux-x64.tar.gz
+FILE_HADOOP=hadoop-2.3.0.tar.gz
+URL_AZKABAN_WEB_SERVER=https://s3.amazonaws.com/azkaban2/azkaban2/2.1/$FILE_AZKABAN_WEBSERVER
+URL_AZKABAN_EXECUTOR_SERVER=https://s3.amazonaws.com/azkaban2/azkaban2/2.1/$FILE_AZKABAN_EXECUTOR_SERVER
+URL_AZKABAN_MYSQL_SCRIPTS=https://s3.amazonaws.com/azkaban2/azkaban2/2.1/$FILE_AZKABAN_MYSQL_SCRIPTS
+URL_AZKABAN_PLUGIN_HDFS=https://s3.amazonaws.com/azkaban2/azkaban-plugins/$FILE_AZKABAN_PLUGIN_HDFS
+URL_AZKABAN_PLUGIN_JOBTYPES=https://s3.amazonaws.com/azkaban2/azkaban-plugins/$FILE_AZKABAN_PLUGIN_JOBTYPES
+URL_AZKABAN_PLUGIN_YARN_SECURITY=https://s3.amazonaws.com/azkaban2/azkaban-plugins/$FILE_AZAKBAN_PLUGIN_YARN
+URL_MYSQL_CONNECTOR=http://dev.mysql.com/get/Downloads/Connector-J/$FILE_MYSQL_CONNECTOR
+URL_HADOOP=http://apache.petsads.us/hadoop/common/hadoop-2.3.0/$FILE_HADOOP
+RESOURCES=/vagrant/resources
+RESOURCE_AZKABAN_WEB_SERVER=$RESOURCES/$FILE_AZKABAN_WEBSERVER
+RESOURCE_AZKABAN_EXECUTOR_SERVER=$RESOURCES/$FILE_AZKABAN_EXECUTOR_SERVER
+RESOURCE_AZKABAN_MYSQL_SCRIPTS=$RESOURCES/$FILE_AZKABAN_MYSQL_SCRIPTS
+RESOURCE_AZKABAN_PLUGIN_HDFS=$RESOURCES/$FILE_AZKABAN_PLUGIN_HDFS
+RESOURCE_AZKABAN_PLUGIN_JOBTYPES=$RESOURCES/$FILE_AZKABAN_PLUGIN_JOBTYPES
+RESOURCE_AZKABAN_PLUGIN_YARN_SECURITY=$RESOURCES/$FILE_AZAKBAN_PLUGIN_YARN
+RESOURCE_MYSQL_CONNECTOR=$RESOURCES/$FILE_MYSQL_CONNECTOR
+RESOURCE_JDK=$RESOURCES/$FILE_JDK
+RESOURCE_HADOOP=$RESOURCES/$FILE_HADOOP
+RESOURCE_HADOOP_CORE=$RESOURCES/hadoop/core-site.xml
+RESOURCE_HADOOP_HDFS=$RESOURCES/hadoop/hdfs-site.xml
+RESOURCE_HADOOP_MAPRED=$RESOURCES/hadoop/mapred-site.xml
+RESOURCE_HADOOP_YARN=$RESOURCES/hadoop/yarn-site.xml
+RESOURCE_HADOOP_SLAVES=$RESOURCES/hadoop/slaves
+RESOURCE_HADOOP_HENV=$RESOURCES/hadoop/hadoop-env.sh
+RESOURCE_HADOOP_YENV=$RESOURCES/hadoop/yarn-env.sh
+RESOURCE_HADOOP_HENV=$RESOURCES/hadoop/hadoop-env.sh
+RESOURCE_HADOOP_PROFILE=$RESOURCES/hadoop/hadoop.sh
+RESOURCE_HADOOP_SERVICE=$RESOURCES/hadoop/hadoop
+
+function fileExists {
+	FILE=$1
+	if [ -e $FILE ]
+	then
+		return 0
+	else
+		return 1
+	fi
+}
+
+function downloadFile {
+	if fileExists $1; then
+		echo "not downloading $1"
+	else
+		curl -o $1 -O -L $2
+	fi
+}

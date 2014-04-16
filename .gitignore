@@ -1,2 +1,10 @@
 .vagrant/
 .DS_Store
+/Azkaban/resources/azkaban-hadoopsecuritymanager-yarn-2.1.jar
+/Azkaban/resources/azkaban-executor-server-2.1.tar.gz
+/Azkaban/resources/azkaban-hdfs-viewer-2.1.tar.gz
+/Azkaban/resources/azkaban-jobtype-2.1.tar.gz
+/Azkaban/resources/azkaban-sql-script-2.1.tar.gz
+/Azkaban/resources/azkaban-web-server-2.1.tar.gz
+/Azkaban/resources/hadoop-2.3.0.tar.gz
+/Azkaban/resources/mysql-connector-java-5.1.29.tar.gz
